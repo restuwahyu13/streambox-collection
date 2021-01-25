@@ -1,11 +1,9 @@
-import { Response } from 'express'
 import { waitFor, ClearablePromise } from '../utils/util.wait'
 import EventEmitter from 'eventemitter3'
 import { GrpcError } from '../utils/util.error'
+import { IncomingMessage } from '../types/string'
 
 let event = new EventEmitter()
-
-export interface IncomingMessage extends Response {}
 
 /**
  * displaying message to string format

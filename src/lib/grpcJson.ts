@@ -1,19 +1,9 @@
-import { Response } from 'express'
 import { waitFor, ClearablePromise } from '../utils/util.wait'
 import EventEmitter from 'eventemitter3'
 import { GrpcError } from '../utils/util.error'
+import { OptionsJson, IncomingMessage } from '../types/json'
 
 let event = new EventEmitter()
-
-export interface IncomingMessage extends Response {}
-
-export interface OptionsJson {
-	method: string
-	statusCode: number
-	message: string
-	delay?: number
-	data?: Record<string, any> | Record<string, any>[]
-}
 
 /**
  * displaying message to json format

@@ -1,6 +1,6 @@
 ## BUILD STAGE ONE
 
-FROM node:14-alpine as midtrans-client
+FROM node:14-alpine as grpc-message
 WORKDIR /app
 COPY package*.json \
   .coveralls.yml \
@@ -18,7 +18,7 @@ RUN apk add make \
 
 ## BUILD STAGE TWO
 
-FROM midtrans-client
+FROM grpc-message
 WORKDIR /app
-COPY --from=midtrans-client ./ /app
+COPY --from=grpc-message ./ /app
 RUN make build
