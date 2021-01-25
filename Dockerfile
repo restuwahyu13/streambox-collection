@@ -3,7 +3,6 @@
 FROM node:14-alpine as grpc-message
 WORKDIR /app
 COPY package*.json \
-  .coveralls.yml \
   .editorconfig \
   .gitignore \
   .npmignore \
