@@ -1,4 +1,4 @@
-## Grpc Message
+## GRPC Message
 
 [![Build Status](https://travis-ci.org/restuwahyu13/nodejs-midtrans-client.svg?branch=main)](https://travis-ci.org/restuwahyu13/nodejs-midtrans-client)
 
