@@ -4,12 +4,7 @@
 		"sourceType": "module"
 	},
 	"parser": "@typescript-eslint/parser",
-	"extends": [
-		"plugin:@typescript-eslint/recommended",
-		"plugin:prettier/recommended",
-		"plugin:jest/recommended",
-		"standard"
-	],
+	"extends": ["plugin:@typescript-eslint/recommended", "plugin:prettier/recommended", "plugin:jest/recommended", "standard"],
 	"rules": {
 		"prettier/prettier": 0,
 		"no-tabs": 0,

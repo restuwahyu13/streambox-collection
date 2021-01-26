@@ -8,20 +8,30 @@ import { waitFor } from '../utils/util.wait'
 const stream = new MemoryStream() as MemoryStream
 const transform = new Transform() as Transform
 
-export function array(data: Record<string, any>, delay?: number): Promise<any[]> {
-  return new Promise((resolve, reject) => {
+/**
+ * create a data stream for the array data type
+ * @param data - set stream data for consumption to the client - required
+ * @param delay - set delay before returning data to the client - optional
+ * @return Promise
+ */
+
+export function array(data: Record<string, any>[] | string[] | number[], delay?: number): Promise<Buffer> {
+	return new Promise((resolve, reject) => {
 		if (isType(data) === 'array') {
-			const toJson: string = JSON.stringify({ 'data': data })
-			stream.write(toJson)
+			const toArray: string = JSON.stringify({ data: data })
+			stream.write(toArray)
 			stream.once('data', (chunk): boolean => transform.emit('data', gzipSync(chunk.toString())))
 		} else {
-			reject(new GrpcBox(`parameter must be a array you give type ${isType(data)}`))
+			reject(new GrpcBox(`data must be a array you give type ${isType(data)}`))
 		}
 
-		transform.once('data', async (res): Promise<void> => {
-			await waitFor(delay)
-			const unzip = gunzipSync(res)
-			resolve(JSON.parse(unzip.toString()))
-		})
-})
+		transform.once(
+			'data',
+			async (res): Promise<void> => {
+				await waitFor(delay)
+				const unzip = gunzipSync(res)
+				resolve(unzip)
+			}
+		)
+	})
 }

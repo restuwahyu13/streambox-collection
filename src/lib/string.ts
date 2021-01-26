@@ -9,20 +9,20 @@ const stream = new MemoryStream() as MemoryStream
 const transform = new Transform() as Transform
 
 /**
- * create a data stream for the object data type
+ * create a data stream for the string data type
  * @param data - set stream data for consumption to the client - required
  * @param delay - set delay before returning data to the client - optional
  * @return Promise
  */
 
-export function object(data: Record<string, any>, delay?: number): Promise<Buffer> {
+export function string(data: string, delay?: number): Promise<Buffer> {
 	return new Promise((resolve, reject) => {
-		if (isType(data) === 'object') {
-			const toObject: string = JSON.stringify(data)
-			stream.write(toObject)
+		if (isType(data) === 'string') {
+			const toString: string = data
+			stream.write(toString)
 			stream.once('data', (chunk): boolean => transform.emit('data', gzipSync(chunk.toString())))
 		} else {
-			reject(new GrpcBox(`data must be a object you give type ${isType(data)}`))
+			reject(new GrpcBox(`data must be a string you give type ${isType(data)}`))
 		}
 
 		transform.once(
