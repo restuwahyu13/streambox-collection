@@ -3,13 +3,24 @@ language: node_js
 node_js:
   - node
   - 14
+  - 13
+  - 12
 
-services:
-  - docker
+addons:
+  apt:
+    packages:
+      - make
 
-before_install: docker build -t grpc-message .
+# before_script:
+#   - sudo apt-get update -y
+#   - sudo apt-get install -y make
 
-script: docker image ls
+scripts: make build
+
+cache:
+  - npm
+  - packages
 
 os:
+  - windows
   - linux
