@@ -1,5 +1,5 @@
 import wait, { ClearablePromise } from 'delay'
+import { isType } from './util.is'
 
 export { ClearablePromise }
-export const waitFor = (delay?: number): ClearablePromise<void> =>
-	delay !== undefined || null ? wait(delay) : wait(3000)
+export const waitFor = (delay: number): ClearablePromise<void> => isType(delay) === 'number' ? wait(delay) : wait(0)

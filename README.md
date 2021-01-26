@@ -1,24 +1,24 @@
-## GRPC Message
+## GRPC Box
 
 [![Build Status](https://travis-ci.org/restuwahyu13/grpc-message.svg?branch=main)](https://travis-ci.org/restuwahyu13/grpc-message)
 
-**grpc-message** is a utility to display a json response or a format string to a client for `express.js`, build using `eventemitter3`.
+**grpc-box** is a utility to display a json response or a format string to a client for `express.js`, build using `eventemitter3`.
 
 ### Install Package
 
 ```sh
-npm install grpc-message -S or yarn grpc-message -S
+npm install grpc-box -S or yarn grpc-box -S
 ```
 
 ### API Reference
 
-+ #### grpcMessage.json(incomingMessage: Response, options: object): void
++ #### grpcBox.json(incomingMessage: Response, options: object): void
 
-  **grpcMessage.json** for display a json response to a client
+  **grpcBox.json** for display a json response to a client
 
-+ #### grpcMessage.string(incomingMessage: Response, message: string, statusCode?: number, delay?: number): void
++ #### grpcBox.string(incomingMessage: Response, message: string, statusCode?: number, delay?: number): void
 
-  **grpcMessage.string** for display a string response to a client
+  **grpcBox.string** for display a string response to a client
 
 
 ### Example Usage CommonJS
@@ -26,46 +26,49 @@ npm install grpc-message -S or yarn grpc-message -S
 ```typescript
 const { grpcClient } = require('../../middlewares/middleware.grpc')
 const { StudentId, StudentResponse } require('../../../typedefs/mahasiswa_pb')
-const grpcMessage = require('grpc-message')
+const grpcBox = require('grpc-box')
 
 exports.resultStudent = (req, res, next) => {
 
-	const client = grpcClient()
-	const params = new StudentId()
-	params.setId(req.params.id)
+  const client = grpcClient()
+  const params = new StudentId()
+  params.setId(req.params.id)
 
-	client.resultStudent(params, (error, response) => {
-		if (error) {
-			grpcMessage.json(res, {
-				method: req.method,
-				statusCode: response.getStatuscode(),
-				message: response.getMessage()
-			})
-		}
-
-		if (response !== undefined && response.getId() !== '') {
-			grpcMessage.json(res, {
-				method: req.method,
-				statusCode: response.getStatuscode(),
-				message: response.getMessage(),
-				data: {
-					id: response.getId(),
-					name: response.getName(),
-					npm: response.getNpm(),
-					fak: response.getFak(),
-					bid: response.getBid(),
-					createdAt: response.getCreatedAt(),
-					updatedAt: response.getUpdatedAt()
-				}
-			})
-		} else {
-			grpcMessage.json(res, {
-				method: req.method,
-				statusCode: response.getStatuscode(),
-				message: response.getMessage()
-			})
-		}
+  client.resultStudent(params, (error, response) => {
+	if (error) {
+	grpcBox.object({
+	  method: req.method,
+	  statusCode: response.getStatuscode(),
+	  message: response.getMessage()
 	})
+	.then(response => res.json(response))
+	}
+
+	if (response !== undefined && response.getId() !== '') {
+		grpcBox.object({
+			method: req.method,
+			statusCode: response.getStatuscode(),
+			message: response.getMessage(),
+			data: {
+			 id: response.getId(),
+			 name: response.getName(),
+			 npm: response.getNpm(),
+			 fak: response.getFak(),
+			 bid: response.getBid(),
+			 createdAt: response.getCreatedAt(),
+			 updatedAt: response.getUpdatedAt()
+		  }
+		})
+		.then(response => res.json(response))
+	} else {
+		grpcBox.object({
+		 method: req.method,
+		 statusCode: response.getStatuscode(),
+		 message: response.getMessage()
+		})
+		.then(response => res.json(response))
+	}
+  })
 }
 ```
 
@@ -76,46 +79,49 @@ import { Request, Response } from 'express'
 import { ServiceError } from '@grpc/grpc-js'
 import { grpcClient } from '../../middlewares/middleware.grpc'
 import { StudentId, StudentResponse } from '../../../typedefs/mahasiswa_pb'
-import * as grpcMessage from 'grpc-message'
+import * as grpcBox from 'grpc-box'
 
-export const resultStudent = (req: Request, res: Response): void => {
+export const resultStudent = (req, res, next) => {
 
-	const client = grpcClient()
-	const params = new StudentId()
-	params.setId(req.params.id)
+  const client = grpcClient()
+  const params = new StudentId()
+  params.setId(req.params.id)
 
-	client.resultStudent(params, (error: ServiceError, response: StudentResponse): void => {
-		if (error) {
-			grpcMessage.json(res, {
-				method: req.method,
-				statusCode: response.getStatuscode(),
-				message: response.getMessage()
-			})
-		}
-
-		if (response !== undefined && response.getId() !== '') {
-			grpcMessage.json(res, {
-				method: req.method,
-				statusCode: response.getStatuscode(),
-				message: response.getMessage(),
-				data: {
-					id: response.getId(),
-					name: response.getName(),
-					npm: response.getNpm(),
-					fak: response.getFak(),
-					bid: response.getBid(),
-					createdAt: response.getCreatedAt(),
-					updatedAt: response.getUpdatedAt()
-				}
-			})
-		} else {
-			grpcMessage.json(res, {
-				method: req.method,
-				statusCode: response.getStatuscode(),
-				message: response.getMessage()
-			})
-		}
+  client.resultStudent(params, (error, response) => {
+	if (error) {
+	grpcBox.object({
+	  method: req.method,
+	  statusCode: response.getStatuscode(),
+	  message: response.getMessage()
 	})
+	.then(response => res.json(response))
+	}
+
+	if (response !== undefined && response.getId() !== '') {
+		grpcBox.object({
+			method: req.method,
+			statusCode: response.getStatuscode(),
+			message: response.getMessage(),
+			data: {
+			 id: response.getId(),
+			 name: response.getName(),
+			 npm: response.getNpm(),
+			 fak: response.getFak(),
+			 bid: response.getBid(),
+			 createdAt: response.getCreatedAt(),
+			 updatedAt: response.getUpdatedAt()
+		  }
+		})
+		.then(response => res.json(response))
+	} else {
+		grpcBox.object({
+		 method: req.method,
+		 statusCode: response.getStatuscode(),
+		 message: response.getMessage()
+		})
+		.then(response => res.json(response))
+	}
+  })
 }
 ```
 

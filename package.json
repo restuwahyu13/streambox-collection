@@ -1,7 +1,7 @@
 {
-  "name": "grpc-message",
+  "name": "grpc-box",
   "version": "0.0.1",
-  "description": "grpc-message is utility for rendering response json or string format to client",
+  "description": "grpc-box is utility for rendering response object, array or another format to client",
   "main": "./dist/index.js",
   "files": [
     "/dist/**"
@@ -32,8 +32,8 @@
   },
   "keywords": [
     "grpc",
-		"grpc message",
-		"grpc js",
+    "grpc message",
+    "grpc js",
     "@grpc/grpc-js",
     "express",
     "nodejs",
@@ -44,7 +44,8 @@
   ],
   "dependencies": {
     "delay": "^4.4.0",
-    "eventemitter3": "^4.0.7"
+    "eventemitter3": "^4.0.7",
+    "memorystream": "^0.3.1"
   },
   "devDependencies": {
     "@types/delay": "^3.1.0",
@@ -52,6 +53,7 @@
     "@types/eventemitter3": "^2.0.2",
     "@types/express": "^4.17.11",
     "@types/jest": "^26.0.20",
+    "@types/memorystream": "^0.3.0",
     "@types/node": "^14.14.22",
     "@typescript-eslint/eslint-plugin": "^4.12.0",
     "@typescript-eslint/parser": "^4.12.0",

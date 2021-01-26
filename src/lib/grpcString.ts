@@ -1,6 +1,6 @@
 import { waitFor, ClearablePromise } from '../utils/util.wait'
 import EventEmitter from 'eventemitter3'
-import { GrpcError } from '../utils/util.error'
+import { GrpcBox } from '../utils/util.error'
 import { IncomingMessage } from '../types/string'
 
 let event = new EventEmitter()
@@ -19,11 +19,11 @@ export const string = (incomingMessage: IncomingMessage, message: string, status
 		let wait = waitFor(delay) as ClearablePromise<void>
 
 		if (!incomingMessage || !message) {
-			incomingMessage.json({ error: new GrpcError('parameter is required') })
+			incomingMessage.json({ error: new GrpcBox('parameter is required') })
 		} else if ((typeof message !== 'string' && message !== undefined) || null) {
-			incomingMessage.json({ error: new GrpcError('message must be a string') })
+			incomingMessage.json({ error: new GrpcBox('message must be a string') })
 		} else if ((typeof delay !== 'number' && delay !== undefined) || null) {
-			incomingMessage.json({ error: new GrpcError('delay must be a number') })
+			incomingMessage.json({ error: new GrpcBox('delay must be a number') })
 		} else {
 			event.once('message', (data): void => {
 				incomingMessage.status(data.statusCode || 200).send(data.message)
