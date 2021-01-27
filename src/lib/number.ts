@@ -15,7 +15,7 @@ const transform = new Transform() as Transform
  * @return Promise
  */
 
-export function number(data: string, delay?: number): Promise<Buffer> {
+export function number(data: number, delay?: number): Promise<Buffer> {
 	return new Promise((resolve, reject) => {
 		if (isType(data) === 'number') {
 			const toNumber: number = parseInt(data)

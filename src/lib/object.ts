@@ -15,7 +15,7 @@ const transform = new Transform() as Transform
  * @return Promise
  */
 
-export function object(data: Record<string, any>, delay?: number): Promise<Buffer> {
+export function object(data: Record<string, any> | Uint8Array | Uint32Array, delay?: number): Promise<Buffer> {
 	return new Promise((resolve, reject) => {
 		if (isType(data) === 'object') {
 			const toObject: string = JSON.stringify(data)
