@@ -4,6 +4,7 @@ import { gunzipSync, gzipSync } from 'zlib'
 import { isType } from '../utils/util.is'
 import { GrpcBox } from '../utils/util.error'
 import { waitFor } from '../utils/util.wait'
+import { serializeToBytes } from '../utils/util.serialize'
 
 const stream = new MemoryStream() as MemoryStream
 const transform = new Transform() as Transform
@@ -15,7 +16,7 @@ const transform = new Transform() as Transform
  * @return Promise
  */
 
-export function array(data: Record<string, any>[] | any[] | Uint8Array | Uint32Array, delay?: number): Promise<Buffer> {
+export function array(data: Record<string, any>[] | any[] | Uint8Array, delay?: number): Promise<Uint8Array> {
 	return new Promise((resolve, reject) => {
 		if (isType(data) === 'array') {
 			const toArray: string = JSON.stringify({ data: data })
@@ -30,7 +31,7 @@ export function array(data: Record<string, any>[] | any[] | Uint8Array | Uint32A
 			async (res): Promise<void> => {
 				await waitFor(delay)
 				const unzip = gunzipSync(res)
-				resolve(unzip)
+				resolve(serializeToBytes(unzip))
 			}
 		)
 	})

@@ -16,14 +16,14 @@ describe('grpcBox.array', () => {
 
 	it('check if is response value is buffer and return array', async (done) => {
 		const res = await grpc.array([{ name: 'restu wahyu saputra' }])
-		expect(res).toBeInstanceOf(Buffer)
+		expect(res).toBeInstanceOf(Uint8Array)
 		expect(grpc.toArray(res)).toMatchObject([{ name: 'restu wahyu saputra' }])
 		done()
 	})
 
-	it('check if is response value from buffer typeof is array', async (done) => {
+	it('check if is response value from Uint8Array typeof is array', async (done) => {
 		const res = await grpc.array([{ name: 'restu wahyu saputra' }])
-		expect(res).toBeInstanceOf(Buffer)
+		expect(res).toBeInstanceOf(Uint8Array)
 		expect(isType(grpc.toArray(res))).toBe('array')
 		done()
 	})

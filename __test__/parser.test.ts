@@ -1,5 +1,6 @@
 import * as grpcBox from '../src/index'
 import { isType } from '../src/utils/util.is'
+import { serializeToBytes } from '../src/utils/util.serialize'
 
 describe('grpcBox.parser', () => {
 	let grpc
@@ -21,14 +22,14 @@ describe('grpcBox.parser', () => {
 
 	it('check if is response value type is object', () => {
 		const data = JSON.stringify({ name: 'restu wahyu saputra' })
-		const object = grpc.toObject(Buffer.from(data))
+		const object = grpc.toObject(serializeToBytes(Buffer.from(data)))
 		expect(isType(object)).toBe('object')
 		expect(object).toMatchObject({ name: 'restu wahyu saputra' })
 	})
 
 	it('check if is response value type is array', () => {
-		const data = JSON.stringify({ data: [{ name: 'restu wahyu saputra' }] })
-		const array = grpc.toArray(Buffer.from(data))
+		const data: any = JSON.stringify({ data: [{ name: 'restu wahyu saputra' }] })
+		const array = grpc.toArray(serializeToBytes(Buffer.from(data)))
 		expect(isType(array)).toBe('array')
 		expect(array).toMatchObject([{ name: 'restu wahyu saputra' }])
 	})

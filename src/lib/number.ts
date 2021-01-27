@@ -18,7 +18,7 @@ const transform = new Transform() as Transform
 export function number(data: number, delay?: number): Promise<Buffer> {
 	return new Promise((resolve, reject) => {
 		if (isType(data) === 'number') {
-			const toNumber: number = parseInt(data)
+			const toNumber: number = data
 			stream.write(toNumber.toString())
 			stream.once('data', (chunk): boolean => transform.emit('response', gzipSync(chunk.toString())))
 		} else {
