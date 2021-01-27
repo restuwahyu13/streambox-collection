@@ -1,19 +1,22 @@
+dist: xenial
+
 language: node_js
 
 node_js:
   - node
   - 14
-  - 13
-  - 12
+
+env:
+  global:
+    - COVERALLS_PARALLEL=true
+    - COVERALLS_SERVICE_NAME=travis-pro
+    - COVERALLS_REPO_TOKEN=GlMtED2sJLMkeWpIBtaC875410Nfd2qar
+    - COVERALLS_GIT_BRANCH=main
 
 addons:
   apt:
     packages:
       - make
-
-# before_script:
-#   - sudo apt-get update -y
-#   - sudo apt-get install -y make
 
 script: make build
 
@@ -22,3 +25,6 @@ cache:
 
 os:
   - linux
+
+notifications:
+  webhooks: https://coveralls.io/webhook?repo_token=GlMtED2sJLMkeWpIBtaC875410Nfd2qar
