@@ -19,8 +19,6 @@ scripts: make build
 
 cache:
   - npm
-  - packages
 
 os:
-  - windows
   - linux
