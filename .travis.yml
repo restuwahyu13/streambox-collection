@@ -28,3 +28,4 @@ os:
 
 notifications:
   webhooks: https://coveralls.io/webhook?repo_token=GlMtED2sJLMkeWpIBtaC875410Nfd2qar
+  email: restuwahyu13@gmail.com
