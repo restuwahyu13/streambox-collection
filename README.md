@@ -1,8 +1,13 @@
 ## Grpc Box
 
 [![Build Status](https://travis-ci.org/restuwahyu13/grpc-box.svg?branch=main)](https://travis-ci.org/restuwahyu13/grpc-box)
+[![Coverage Status](https://coveralls.io/repos/github/restuwahyu13/grpc-box/badge.svg?branch=main)](https://coveralls.io/github/restuwahyu13/grpc-box?branch=main)
 
-`grpc-box` is a lightweight utility for displaying objects, arrays, strings, and number formats to clients using stream module, then the response that will be returned later will be a data buffer, `grpc-box` can also stream large or small data, check out this article for more information on module [stream](https://www.freecodecamp.org/news/node-js-streams-everything-you-need-to-know-c9141306be93), this module is not only for use with grpc, but you can also use this module without using grpc.
+`grpc-box` is a lightweight utility for displaying objects, arrays, strings, and number formats to clients using stream module,
+then the response that will be returned later will be a data buffer, `grpc-box` can also stream large or small data, check out
+this article for more information on module
+[stream](https://www.freecodecamp.org/news/node-js-streams-everything-you-need-to-know-c9141306be93), this module is not only for
+use with grpc, but you can also use this module without using grpc.
 
 ### Install Package
 
