@@ -28,7 +28,7 @@ describe('grpcBox.string', () => {
 	})
 
 	it('check if response value error is not string', (done) => {
-		grpc.object(12345).catch((error) => {
+		grpc.string(12345).catch((error) => {
 			expect(error.message).toMatch(/number/)
 			done()
 		})

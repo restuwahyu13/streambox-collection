@@ -28,8 +28,8 @@ describe('grpcBox.number', () => {
 	})
 
 	it('check if response value error is not number', (done) => {
-		grpc.object({ name: 'restu wahyu saputra' }).catch((error) => {
-			expect(error.message).toMatch(/object/)
+		grpc.number('12345').catch((error) => {
+			expect(error.message).toMatch(/string/)
 			done()
 		})
 		done()
