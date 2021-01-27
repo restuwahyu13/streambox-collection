@@ -1,11 +1,8 @@
 ## Grpc Box
 
-[![Build Status](https://travis-ci.org/restuwahyu13/grpc-message.svg?branch=main)](https://travis-ci.org/restuwahyu13/grpc-message)
+[![Build Status](https://travis-ci.org/restuwahyu13/grpc-box.svg?branch=main)](https://travis-ci.org/restuwahyu13/grpc-box)
 
-`grpc-box` is a lightweight utility for displaying objects, arrays, strings, and number formats to clients using stream module,
-then the response that will be returned later will be a data buffer, `grpc-box` can also stream large or small data, check out
-this article for more information on module
-`[stream](https://www.freecodecamp.org/news/node-js-streams-everything-you-need-to-know-c9141306be93/)`.
+`grpc-box` is a lightweight utility for displaying objects, arrays, strings, and number formats to clients using stream module, then the response that will be returned later will be a data buffer, `grpc-box` can also stream large or small data, check out this article for more information on module [stream](https://www.freecodecamp.org/news/node-js-streams-everything-you-need-to-know-c9141306be93), this module is not only for use with grpc, but you can also use this module without using grpc.
 
 ### Install Package
 
@@ -26,107 +23,41 @@ npm install grpc-box -S or yarn grpc-box -S
 ### Example Usage CommonJS
 
 ```typescript
-const { grpcClient } = require('../../middlewares/middleware.grpc')
-const { StudentId, StudentResponse } require('../../../typedefs/mahasiswa_pb')
 const grpcBox = require('grpc-box')
+const { ServiceError } require('grpc')
+const { User, UserId } = require('../typedefs/users_pb')
+const { client } = require('./client')
 
-exports.resultStudent = (req, res, next) => {
+const params = new UserId()
+params.setId(2)
 
-  const client = grpcClient()
-  const params = new StudentId()
-  params.setId(req.params.id)
-
-  client.resultStudent(params, (error, response) => {
-	if (error) {
-	grpcBox.object({
-	  method: req.method,
-	  statusCode: response.getStatuscode(),
-	  message: response.getMessage()
-	})
-	.then(response => res.json(response))
-	}
-
-	if (response !== undefined && response.getId() !== '') {
-		grpcBox.object({
-			method: req.method,
-			statusCode: response.getStatuscode(),
-			message: response.getMessage(),
-			data: {
-			 id: response.getId(),
-			 name: response.getName(),
-			 npm: response.getNpm(),
-			 fak: response.getFak(),
-			 bid: response.getBid(),
-			 createdAt: response.getCreatedAt(),
-			 updatedAt: response.getUpdatedAt()
-		  }
-		})
-		.then(response => res.json(response))
-	} else {
-		grpcBox.object({
-		 method: req.method,
-		 statusCode: response.getStatuscode(),
-		 message: response.getMessage()
-		})
-		.then(response => res.json(response))
-	}
-  })
-}
+client.getUser(params, (error: ServiceError, response: User) => {
+	if (error) console.error(error)
+	grpcBox
+		.object(response.toObject())
+		.then((res) => console.log(grpcBox.toObject(res)))
+		.catch(console.log)
+})
 ```
 
 ### Example Usage ES6
 
 ```typescript
-import { Request, Response } from 'express'
-import { ServiceError } from '@grpc/grpc-js'
-import { grpcClient } from '../../middlewares/middleware.grpc'
-import { StudentId, StudentResponse } from '../../../typedefs/mahasiswa_pb'
 import * as grpcBox from 'grpc-box'
+import { ServiceError } from 'grpc'
+import { User, UserId } from '../typedefs/users_pb'
+import { client } from './client'
 
-export const resultStudent = (req, res, next) => {
-	const client = grpcClient()
-	const params = new StudentId()
-	params.setId(req.params.id)
+const params = new UserId()
+params.setId(2)
 
-	client.resultStudent(params, (error, response) => {
-		if (error) {
-			grpcBox
-				.object({
-					method: req.method,
-					statusCode: response.getStatuscode(),
-					message: response.getMessage()
-				})
-				.then((response) => res.json(response))
-		}
-
-		if (response !== undefined && response.getId() !== '') {
-			grpcBox
-				.object({
-					method: req.method,
-					statusCode: response.getStatuscode(),
-					message: response.getMessage(),
-					data: {
-						id: response.getId(),
-						name: response.getName(),
-						npm: response.getNpm(),
-						fak: response.getFak(),
-						bid: response.getBid(),
-						createdAt: response.getCreatedAt(),
-						updatedAt: response.getUpdatedAt()
-					}
-				})
-				.then((response) => res.json(response))
-		} else {
-			grpcBox
-				.object({
-					method: req.method,
-					statusCode: response.getStatuscode(),
-					message: response.getMessage()
-				})
-				.then((response) => res.json(response))
-		}
-	})
-}
+client.getUser(params, (error: ServiceError, response: User) => {
+	if (error) console.error(error)
+	grpcBox
+		.object(response.toObject())
+		.then((res) => console.log(grpcBox.toObject(res)))
+		.catch(console.log)
+})
 ```
 
 ### Testing Application
@@ -135,6 +66,12 @@ export const resultStudent = (req, res, next) => {
 
   ```sh
   npm run test or make test
+  ```
+
+- Testing Via Local And Build
+
+  ```sh
+  make build
   ```
 
 - Testing Via Docker
