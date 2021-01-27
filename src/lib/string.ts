@@ -20,13 +20,13 @@ export function string(data: string, delay?: number): Promise<Buffer> {
 		if (isType(data) === 'string') {
 			const toString: string = data
 			stream.write(toString)
-			stream.once('data', (chunk): boolean => transform.emit('data', gzipSync(chunk.toString())))
+			stream.once('data', (chunk): boolean => transform.emit('response', gzipSync(chunk.toString())))
 		} else {
 			reject(new GrpcBox(`data must be a string you give type ${isType(data)}`))
 		}
 
 		transform.once(
-			'data',
+			'response',
 			async (res): Promise<void> => {
 				await waitFor(delay)
 				const unzip = gunzipSync(res)

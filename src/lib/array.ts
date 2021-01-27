@@ -20,13 +20,13 @@ export function array(data: Record<string, any>[] | string[] | number[], delay?:
 		if (isType(data) === 'array') {
 			const toArray: string = JSON.stringify({ data: data })
 			stream.write(toArray)
-			stream.once('data', (chunk): boolean => transform.emit('data', gzipSync(chunk.toString())))
+			stream.once('data', (chunk): boolean => transform.emit('response', gzipSync(chunk.toString())))
 		} else {
 			reject(new GrpcBox(`data must be a array you give type ${isType(data)}`))
 		}
 
 		transform.once(
-			'data',
+			'response',
 			async (res): Promise<void> => {
 				await waitFor(delay)
 				const unzip = gunzipSync(res)

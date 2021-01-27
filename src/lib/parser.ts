@@ -15,7 +15,7 @@ export function toObject<T extends Record<string, any>>(chunk: Buffer): T {
 /**
  * parse buffer data to array
  */
-export function toArray<T extends Record<string, any>>(chunk: Buffer): T {
+export function toArray<T extends Record<string, any>[] | string[] | number[]>(chunk: Buffer): T {
 	if (chunk instanceof Buffer) {
 		return JSON.parse(chunk.toString()).data
 	} else {

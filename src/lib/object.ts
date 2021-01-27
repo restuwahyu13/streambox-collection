@@ -20,13 +20,13 @@ export function object(data: Record<string, any>, delay?: number): Promise<Buffe
 		if (isType(data) === 'object') {
 			const toObject: string = JSON.stringify(data)
 			stream.write(toObject)
-			stream.once('data', (chunk): boolean => transform.emit('data', gzipSync(chunk.toString())))
+			stream.once('data', (chunk): boolean => transform.emit('response', gzipSync(chunk.toString())))
 		} else {
 			reject(new GrpcBox(`data must be a object you give type ${isType(data)}`))
 		}
 
 		transform.once(
-			'data',
+			'response',
 			async (res): Promise<void> => {
 				await waitFor(delay)
 				const unzip = gunzipSync(res)
