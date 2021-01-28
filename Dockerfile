@@ -1,7 +1,6 @@
 ## BUILD STAGE ONE
 
-FROM node:14-alpine as grpc-message
-WORKDIR /app
+FROM node:14-alpine as streambox-collection
 COPY package*.json \
   .editorconfig \
   .gitignore \
@@ -17,7 +16,7 @@ RUN apk add make \
 
 ## BUILD STAGE TWO
 
-FROM grpc-message
+FROM streambox-collection
+COPY --from=streambox-collection ./ /app
 WORKDIR /app
-COPY --from=grpc-message ./ /app
 RUN make build

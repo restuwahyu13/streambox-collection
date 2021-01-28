@@ -4,8 +4,9 @@
 	"description": "bechmark testing",
 	"main": "index.js",
 	"scripts": {
-		"bech:one": "ts-node -H -T src/bechmarkTestOne.ts",
-		"bech:two": "ts-node -H -T src/beckmarkTestTwo.ts"
+		"bech:1": "ts-node -H -T src/bechmarkTestOne.ts",
+		"bech:2": "ts-node -H -T src/beckmarkTestTwo.ts",
+		"bech:3": "ts-node -H -T src/bechmarkTestThree.ts"
 	},
 	"repository": {
 		"type": "git",
@@ -19,6 +20,8 @@
 	"dependencies": {
 		"@types/axios": "^0.14.0",
 		"axios": "^0.21.1",
+		"express": "^4.17.1",
+		"streambox-collection": "0.0.2-rc",
 		"ts-node": "^9.1.1"
 	}
 }

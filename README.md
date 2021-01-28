@@ -108,6 +108,8 @@ npm install streambox-collection -S or yarn add streambox-collection -S
   const axios = require('axios')
   const streamBox = require('streambox-collection')
 
+  const app = express()
+
   app.get('/fetch', async (req, res) => {
   	const { data } = await axios.get('https://jsonplaceholder.typicode.com/photos')
   	streamBox.array(data).then((response) => res.json(streamBox.toArray(response)))

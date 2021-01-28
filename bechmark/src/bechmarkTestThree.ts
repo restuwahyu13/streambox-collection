@@ -1,11 +1,55 @@
+import express, { Express } from 'express'
+import http, { Server } from 'http'
 import axios from 'axios'
 import * as streamBox from 'streambox-collection'
 
-let dateNow = new Date().toISOString()
+const app = express() as Express
+const server = http.createServer(app) as Server
 
-console.time(`bechmark test two: ${dateNow}`)
+app.get('/fetch/one', () => {
 
-async function streamboxBechmark() {
+	console.time(`bechmark fetch one`)
+
+	const results = []
+	for (let i = 0; i < 100000; i++) {
+		results.push(
+			JSON.stringify({
+				id: 1,
+				name: 'Leanne Graham',
+				username: 'Bret',
+				email: 'Sincere@april.biz',
+				address: {
+					street: 'Kulas Light',
+					suite: 'Apt. 556',
+					city: 'Gwenborough',
+					zipcode: '92998-3874',
+					geo: {
+						lat: '-37.3159',
+						lng: '81.1496'
+					}
+				},
+				phone: '1-770-736-8031 x56442',
+				website: 'hildegard.org',
+				company: {
+					name: 'Romaguera-Crona',
+					catchPhrase: 'Multi-layered client-server neural-net',
+					bs: 'harness real-time e-markets'
+				}
+			})
+		)
+	}
+
+	streamBox.array(results).then((response) => console.log(`count: ${streamBox.toArray(response).length}`))
+
+	console.timeEnd(`bechmark fetch one`)
+})
+
+
+
+app.get('/fetch/two', async () => {
+	
+	console.time(`bechmark fetch two`)
+
 	const data1 = await axios.get('https://jsonplaceholder.typicode.com/photos')
 	const data2 = await axios.get('https://jsonplaceholder.typicode.com/photos')
 	const data3 = await axios.get('https://jsonplaceholder.typicode.com/photos')
@@ -51,10 +95,8 @@ async function streamboxBechmark() {
 	])
 
 	streamBox.array(data).then((response) => console.log(`count: ${streamBox.toArray(response).length}`))
+	
+	console.timeEnd(`bechmark fetch two`)
+})
 
-	console.timeEnd(`bechmark test two: ${dateNow}`)
-}
-
-streamboxBechmark()
-
-
+server.listen(3000, () => console.log('server is running on port 3000'))

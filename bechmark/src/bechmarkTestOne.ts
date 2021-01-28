@@ -1,6 +1,8 @@
 import * as streamBox from 'streambox-collection'
 
-console.time()
+let dateNow = new Date().toISOString()
+
+console.time(`bechmark test one: ${dateNow}`)
 
 function streamboxBechmark() {
 	const results = []
@@ -33,8 +35,10 @@ function streamboxBechmark() {
 	}
 
 	streamBox.array(results).then((response) => console.log(`count: ${streamBox.toArray(response).length}`))
+
+	console.timeEnd(`bechmark test one: ${dateNow}`)
 }
 
 streamboxBechmark()
 
-console.timeEnd()
+
