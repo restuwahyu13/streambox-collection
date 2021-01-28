@@ -6,7 +6,7 @@
 ![node-current](https://img.shields.io/node/v/streambox-collection?style=flat-square)
 ![npm](https://img.shields.io/npm/dm/streambox-collection)
 ![npm bundle size](https://img.shields.io/bundlephobia/min/streambox-collection)
-![npm bundle size (version)](https://img.shields.io/bundlephobia/minzip/streambox-collection/1.0.1-rc1)
+![npm bundle size](https://img.shields.io/bundlephobia/minzip/streambox-collection)
 ![Snyk Vulnerabilities for GitHub Repo](https://img.shields.io/snyk/vulnerabilities/github/restuwahyu13/streambox-collection)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](https://github.com/restuwahyu13/streambox-collection/blob/main/CONTRIBUTING.md)
 
