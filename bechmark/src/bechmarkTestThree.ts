@@ -6,12 +6,13 @@ import * as streamBox from 'streambox-collection'
 const app = express() as Express
 const server = http.createServer(app) as Server
 
-app.get('/fetch/one', () => {
+app.get('/fetch/one', (req, res) => {
 
 	console.time(`bechmark fetch one`)
 
 	const results = []
-	for (let i = 0; i < 100000; i++) {
+	
+	for (let i = 0; i < 500000; i++) {
 		results.push(
 			JSON.stringify({
 				id: 1,
@@ -39,14 +40,16 @@ app.get('/fetch/one', () => {
 		)
 	}
 
-	streamBox.array(results).then((response) => console.log(`count: ${streamBox.toArray(response).length}`))
+	streamBox.array(results).then((response) => {
+		console.log(`count: ${streamBox.toArray(response).length}`)
+		res.status(200).json(streamBox.toArray(response))
+	})
 
 	console.timeEnd(`bechmark fetch one`)
 })
 
 
-
-app.get('/fetch/two', async () => {
+app.get('/fetch/two', async (req, res) => {
 	
 	console.time(`bechmark fetch two`)
 
@@ -94,7 +97,10 @@ app.get('/fetch/two', async () => {
 		data20.data
 	])
 
-	streamBox.array(data).then((response) => console.log(`count: ${streamBox.toArray(response).length}`))
+	streamBox.array(data).then((response) => {
+		console.log(`count: ${streamBox.toArray(response).length}`)
+		res.status(200).json(streamBox.toArray(response))
+	})
 	
 	console.timeEnd(`bechmark fetch two`)
 })
