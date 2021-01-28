@@ -1,71 +1,125 @@
-## Grpc Box
+# StreamBox Collection
 
 [![Build Status](https://travis-ci.org/restuwahyu13/grpc-box.svg?branch=main)](https://travis-ci.org/restuwahyu13/grpc-box)
-[![Coverage Status](https://coveralls.io/repos/github/restuwahyu13/grpc-box/badge.svg?branch=main)](https://coveralls.io/github/restuwahyu13/grpc-box?branch=main)
 
-`grpc-box` is a lightweight utility for displaying objects, arrays, strings, and number formats to clients using stream module,
-then the response that will be returned later will be a data buffer, `grpc-box` can also stream large or small data, check out
-this article for more information on module
-[stream](https://www.freecodecamp.org/news/node-js-streams-everything-you-need-to-know-c9141306be93), this module is not only for
-use with grpc, but you can also use this module without using grpc.
+`streambox-collection` is a lightweight utility as a wrapper for displaying objects, arrays, strings, and number formats to clients using data streams, so data flow responses will be returned in buffer form, `streambox-collection` can also support large or small data streams, see this article for more information on [streams](https://bit.ly/3a6373y).
 
-### Install Package
+- [Installation Package](#Installation-Package)
+- [API Reference](#API-Reference)
+  * [StreamBox Array](#StreamBox-Array)
+  * [StreamBox Object](#StreamBox-Object)
+  * [StreamBox String](#StreamBox-String)
+  * [StreamBox Number](#StreamBox-Number)
+  * [StreamBox Parser](#StreamBox-Parser)
+- [Example Usage](#Example-Usage)
+- [Testing](#Testing)
+- [Bugs](#Bugs)
+- [Contributing](#Contributing)
+- [License](#License)
+
+## Installation Package
 
 ```sh
-npm install grpc-box -S or yarn grpc-box -S
+npm install streambox-collection -S or yarn add streambox-collection -S
 ```
 
-### API Reference
+## API Reference
 
-- #### grpcBox.json(incomingMessage: Response, options: object): void
+#### StreamBox Array(data: Record<string, any>[] | string[] | number[], delay?: number): Promise<Buffer>
 
-  **grpcBox.json** for display a json response to a client
+  - **streamBox.Array** - create a data stream for the array and display it to the client
+  - **streamBox.Array.data** - set stream data for consumption to the client
+  - **streamBox.Array.delay** - set delay before returning data to the client
 
-- #### grpcBox.string(incomingMessage: Response, message: string, statusCode?: number, delay?: number): void
+#### StreamBox Object(data: Record<string, any>, delay?: number): Promise<Buffer>
 
-  **grpcBox.string** for display a string response to a client
+  - **streamBox.object** - create a data stream for the object and display it to the client
+  - **streamBox.object.data** - set stream data for consumption to the client
+  - **streamBox.object.delay** - set delay before returning data to the client
 
-### Example Usage CommonJS
+#### StreamBox String(data: string, delay?: number): Promise<Buffer>
 
-```typescript
-const grpcBox = require('grpc-box')
-const { ServiceError } require('grpc')
-const { User, UserId } = require('../typedefs/users_pb')
-const { client } = require('./client')
+  - **streamBox.string** - create a data stream for the string and display it to the client
+  - **streamBox.string.data** - set stream data for consumption to the client
+  - **streamBox.string.delay** - set delay before returning data to the client
 
-const params = new UserId()
-params.setId(2)
+#### StreamBox Number(data: number, delay?: number): Promise<Buffer>
 
-client.getUser(params, (error: ServiceError, response: User) => {
-	if (error) console.error(error)
-	grpcBox
-		.object(response.toObject())
-		.then((res) => console.log(grpcBox.toObject(res)))
-		.catch(console.log)
-})
-```
+  - **streamBox.number** - create a data stream for the number and display it to the client
+  - **streamBox.number.data** - set stream data for consumption to the client
+  - **streamBox.number.delay** - set delay before returning data to the client
 
-### Example Usage ES6
+#### StreamBox Parser(data: Buffer): any
 
-```typescript
-import * as grpcBox from 'grpc-box'
-import { ServiceError } from 'grpc'
-import { User, UserId } from '../typedefs/users_pb'
-import { client } from './client'
+  - **streamBox.toArray** - parse the buffer data to an array and pass its value to the client
+  - **streamBox.toObject** - parse the buffer data to an object and pass its value to the client
+  - **streamBox.toString** - parse the buffer data to an string and pass its value to the client
+  - **streamBox.toNumber** - parse the buffer data to an number and pass its value to the client
 
-const params = new UserId()
-params.setId(2)
+### Example Usage
 
-client.getUser(params, (error: ServiceError, response: User) => {
-	if (error) console.error(error)
-	grpcBox
-		.object(response.toObject())
-		.then((res) => console.log(grpcBox.toObject(res)))
-		.catch(console.log)
-})
-```
+- ####  Example Usage Using CommonJS With Grpc
 
-### Testing Application
+  ```javascript
+  const streamBox = require('streambox-collection')
+  const { Empty } = require('../typedefs/users_pb')
+  const { client } = require('./client')
+
+  client.getUsers(Empty, (error, response) => {
+    if (error) console.error(error)
+    streamBox
+      .array(response.toObject())
+      .then((res) => console.log(streamBox.toArray(res)))
+      .catch(console.log)
+  })
+  ```
+
+- #### Example Usage Using ES6 With Grpc
+
+  ```typescript
+  import * as streamBox from 'streambox-collection'
+  import { ServiceError } from 'grpc'
+  import { UserList, Empty } from '../typedefs/users_pb'
+  import { client } from './client'
+
+  client.getUsers(Empty, (error: ServiceError, response: UserList) => {
+    if (error) console.error(error)
+    streamBox
+      .array(response.toObject())
+      .then((res) => console.log(streamBox.toArray(res)))
+      .catch(console.log)
+  })
+  ```
+
+- #### Example Usage Using CommonJS With Express.js
+
+  ```javascript
+    const express = require('express')
+    const axios = require('axios')
+    const streamBox = require('streambox-collection')
+
+    app.get('/fetch', async (req, res) => {
+      const { data } = await axios.get('https://jsonplaceholder.typicode.com/photos')
+      streamBox.array(data).then((response) => res.json(streamBox.toArray(response)))
+    })
+   ```
+
+- #### Example Usage ES6 Using Express.js
+
+  ```typescript
+  import express, { Express } from 'express'
+  import axios from 'axios'
+  import * as streamBox from 'streambox-collection'
+  
+  const app = express() as Express
+
+  app.get('/fetch', async (req, res) => {
+    const { data } = await axios.get('https://jsonplaceholder.typicode.com/photos')
+    streamBox.array(data).then((response) => res.json(streamBox.toArray(response)))
+  })
+  ```
+
+### Testing
 
 - Testing Via Local
 
@@ -82,27 +136,21 @@ client.getUser(params, (error: ServiceError, response: User) => {
 - Testing Via Docker
 
   ```sh
-  docker build -t grpc-message or make dkb tag=grpc-message
+  docker build -t streambox-collection or make dkb tag=streambox-collection
   ```
 
-### Demo App
+### Bugs
 
-- **[Student App Grpc Typescript](https://github.com/restuwahyu13/express-grpc-rest-api)**
+For information on bugs related to package libraries, please visit [here](https://github.com/restuwahyu13/streambox-collection/issues)
+
+### Contributing
+
+Want to make **Streambox-Collection** more perfect ? Let's contribute and follow the [contribution guide.](https://github.com/restuwahyu13/streambox-collection/blob/main/CONTRIBUTING.md)
 
 ### License
 
-The MIT License (MIT)
+- [MIT License](https://github.com/restuwahyu13/streambox-collection/blob/main/LICENSE.md)
 
-Copyright (c) 2020 Restu Wahyu Saputra
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files
-(the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify,
-merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
-LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
-CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+<p align="right" style="padding: 5px; border-radius: 100%; background-color: red; font-size: 2rem;">
+  <b><a href="#StreamBox-Collection">BACK TO TOP</a></b>
+</p>

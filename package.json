@@ -33,15 +33,21 @@
 		"npm": ">=6"
 	},
 	"keywords": [
+		"stream-box-collection",
 		"stream",
-		"node module",
-		"@grpc/grpc-js",
-		"express",
-		"readble",
-		"duplex",
-		"nodejs",
+		"grpc",
+		"es6",
+		"commonjs",
+		"node",
+		"buffer",
+		"array",
+		"object",
+		"number",
+		"writable",
+		"promise",
+		"async",
 		"javascript",
-		"utility"
+		"typescript"
 	],
 	"dependencies": {
 		"delay": "^4.4.0",
