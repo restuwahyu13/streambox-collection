@@ -21,11 +21,11 @@
 	},
 	"author": "Restu Wahyu Saputra <restuwahyu13@gmail.com>",
 	"repository": {
-		"url": "git+https://github.com/restuwahyu13/grpc-message.git"
+		"url": "git+https://github.com/restuwahyu13/streambox-collection.git"
 	},
-	"homepage": "https://github.com/restuwahyu13/grpc-message#readme",
+	"homepage": "https://github.com/restuwahyu13/streambox-collection#readme",
 	"bugs": {
-		"url": "https://github.com/restuwahyu13/grpc-message/issues"
+		"url": "https://github.com/restuwahyu13/streambox-collection/issues"
 	},
 	"license": "MIT",
 	"engines": {
