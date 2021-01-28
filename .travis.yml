@@ -10,7 +10,7 @@ env:
   global:
     - COVERALLS_PARALLEL=true
     - COVERALLS_SERVICE_NAME=travis-pro
-    - COVERALLS_REPO_TOKEN=GlMtED2sJLMkeWpIBtaC875410Nfd2qar
+    - COVERALLS_REPO_TOKEN=N1yHrKvfPGlfkXycpYxkWnHNhzkssRb8M
     - COVERALLS_GIT_BRANCH=main
 
 addons:
@@ -27,5 +27,5 @@ os:
   - linux
 
 notifications:
-  webhooks: https://coveralls.io/webhook?repo_token=GlMtED2sJLMkeWpIBtaC875410Nfd2qar
+  webhooks: https://coveralls.io/webhook?repo_token=N1yHrKvfPGlfkXycpYxkWnHNhzkssRb8M
   email: restuwahyu13@gmail.com

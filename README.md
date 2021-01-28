@@ -1,16 +1,16 @@
 # StreamBox Collection
 
-[![Build Status](https://travis-ci.org/restuwahyu13/grpc-box.svg?branch=main)](https://travis-ci.org/restuwahyu13/grpc-box)
+[![Build Status](https://travis-ci.org/restuwahyu13/streambox-collection.svg?branch=main)](https://travis-ci.org/restuwahyu13/streambox-collection) [![Coverage Status](https://coveralls.io/repos/github/restuwahyu13/streambox-collection/badge.svg?branch=main)](https://coveralls.io/github/restuwahyu13/streambox-collection?branch=main)
 
 `streambox-collection` is a lightweight utility as a wrapper for displaying objects, arrays, strings, and number formats to clients using data streams, so data flow responses will be returned in buffer form, `streambox-collection` can also support large or small data streams, see this article for more information on [streams](https://bit.ly/3a6373y).
 
 - [Installation Package](#Installation-Package)
 - [API Reference](#API-Reference)
-  * [StreamBox Array](#StreamBox-Array)
-  * [StreamBox Object](#StreamBox-Object)
-  * [StreamBox String](#StreamBox-String)
-  * [StreamBox Number](#StreamBox-Number)
-  * [StreamBox Parser](#StreamBox-Parser)
+  * [StreamBox Array](#streambox-arraydata-recordstring-any--string--number-delay-number-promise)
+  * [StreamBox Object](#streambox-objectdata-recordstring-any-delay-number-promise)
+  * [StreamBox String](#streambox-stringdata-string-delay-number-promise)
+  * [StreamBox Number](#streambox-numberdata-number-delay-number-promise)
+  * [StreamBox Parser](#streambox-parserdata-buffer-any)
 - [Example Usage](#Example-Usage)
 - [Testing](#Testing)
 - [Bugs](#Bugs)
@@ -27,34 +27,34 @@ npm install streambox-collection -S or yarn add streambox-collection -S
 
 #### StreamBox Array(data: Record<string, any>[] | string[] | number[], delay?: number): Promise<Buffer>
 
-  - **streamBox.Array** - create a data stream for the array and display it to the client
-  - **streamBox.Array.data** - set stream data for consumption to the client
-  - **streamBox.Array.delay** - set delay before returning data to the client
+  - **streamBox.Array - Method** - create a data stream for the array and display it to the client
+  - **streamBox.Array.data - Params** - set stream data for consumption to the client
+  - **streamBox.Array.delay - Params** - set delay before returning data to the client
 
 #### StreamBox Object(data: Record<string, any>, delay?: number): Promise<Buffer>
 
-  - **streamBox.object** - create a data stream for the object and display it to the client
-  - **streamBox.object.data** - set stream data for consumption to the client
-  - **streamBox.object.delay** - set delay before returning data to the client
+  - **streamBox.object - Method** - create a data stream for the object and display it to the client
+  - **streamBox.object.data - Params** - set stream data for consumption to the client
+  - **streamBox.object.delay - Params** - set delay before returning data to the client
 
 #### StreamBox String(data: string, delay?: number): Promise<Buffer>
 
-  - **streamBox.string** - create a data stream for the string and display it to the client
-  - **streamBox.string.data** - set stream data for consumption to the client
-  - **streamBox.string.delay** - set delay before returning data to the client
+  - **streamBox.string - Method** - create a data stream for the string and display it to the client
+  - **streamBox.string.data - Params** - set stream data for consumption to the client
+  - **streamBox.string.delay - Params** - set delay before returning data to the client
 
 #### StreamBox Number(data: number, delay?: number): Promise<Buffer>
 
-  - **streamBox.number** - create a data stream for the number and display it to the client
-  - **streamBox.number.data** - set stream data for consumption to the client
-  - **streamBox.number.delay** - set delay before returning data to the client
+  - **streamBox.number - Method** - create a data stream for the number and display it to the client
+  - **streamBox.number.data - Params** - set stream data for consumption to the client
+  - **streamBox.number.delay - Params** - set delay before returning data to the client
 
 #### StreamBox Parser(data: Buffer): any
 
-  - **streamBox.toArray** - parse the buffer data to an array and pass its value to the client
-  - **streamBox.toObject** - parse the buffer data to an object and pass its value to the client
-  - **streamBox.toString** - parse the buffer data to an string and pass its value to the client
-  - **streamBox.toNumber** - parse the buffer data to an number and pass its value to the client
+  - **streamBox.toArray - Method** - parse the buffer data to an array and pass its value to the client
+  - **streamBox.toObject - Method** - parse the buffer data to an object and pass its value to the client
+  - **streamBox.toString - Method** - parse the buffer data to an string and pass its value to the client
+  - **streamBox.toNumber - Method** - parse the buffer data to an number and pass its value to the client
 
 ### Example Usage
 
