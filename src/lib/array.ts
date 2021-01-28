@@ -1,13 +1,12 @@
 import MemoryStream from 'memorystream'
-import { Transform } from 'stream'
-import { gunzipSync, gzipSync } from 'zlib'
+import { gzipSync } from 'zlib'
+import { Transform } from 'readable-stream'
 import { isType } from '../utils/util.is'
-import { GrpcBox } from '../utils/util.error'
+import { StreamBoxCollection } from '../utils/util.error'
 import { waitFor } from '../utils/util.wait'
-import { serializeToBytes } from '../utils/util.serialize'
 
-const stream = new MemoryStream() as MemoryStream
-const transform = new Transform() as Transform
+const memoryStream = new MemoryStream() as MemoryStream
+const transformStream = new Transform() as Transform
 
 /**
  * create a data stream for the array data type
@@ -16,23 +15,17 @@ const transform = new Transform() as Transform
  * @return Promise
  */
 
-export function array(data: Record<string, any>[] | any[] | Uint8Array, delay?: number): Promise<Uint8Array> {
-	return new Promise((resolve, reject) => {
+export function array(data: Record<string, any>[] | any[], delay?: number): Promise<Buffer> {
+	return new Promise(async (resolve, reject) => {
 		if (isType(data) === 'array') {
+			await waitFor(delay)
 			const toArray: string = JSON.stringify({ data: data })
-			stream.write(toArray)
-			stream.once('data', (chunk): boolean => transform.emit('response', gzipSync(chunk.toString())))
+			memoryStream.write(Buffer.from(toArray))
+			memoryStream.once('data', (chunk) => transformStream.emit('response', gzipSync(chunk)))
+			transformStream.once('response', (data) => resolve(data))
+			transformStream.end()
 		} else {
-			reject(new GrpcBox(`data must be a array you give type ${isType(data)}`))
+			reject(new StreamBoxCollection(`data must be a array you give type ${isType(data)}`))
 		}
-
-		transform.once(
-			'response',
-			async (res): Promise<void> => {
-				await waitFor(delay)
-				const unzip = gunzipSync(res)
-				resolve(serializeToBytes(unzip))
-			}
-		)
 	})
 }

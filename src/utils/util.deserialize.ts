@@ -1,4 +1,4 @@
-export function deserializeBytes(array: Uint8Array): Buffer {
+export function deserializeBytes(array: Uint8Array): any {
 	const parseToString = new TextDecoder().decode(array)
-	return Buffer.from(parseToString)
+	return parseToString
 }

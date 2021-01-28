@@ -1,4 +1,4 @@
-export class GrpcBox extends Error {
+export class StreamBoxCollection extends Error {
 	public name: string
 	public message: string
 

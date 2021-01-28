@@ -1,7 +1,7 @@
 {
-	"name": "grpc-box",
+	"name": "stream-box-collection",
 	"version": "0.0.1",
-	"description": "grpc-box is utility for rendering response object, array or another format to client",
+	"description": "stream-box-collection is utility for rendering response object, array or another format to client",
 	"main": "./dist/index.js",
 	"files": [
 		"/dist/**"
@@ -33,31 +33,30 @@
 		"npm": ">=6"
 	},
 	"keywords": [
-		"grpc",
-		"grpc message",
-		"grpc js",
+		"stream",
+		"node module",
 		"@grpc/grpc-js",
 		"express",
-		"nodejs",
-		"typescript",
+		"readble",
+		"duplex",
 		"nodejs",
 		"javascript",
 		"utility"
 	],
 	"dependencies": {
 		"delay": "^4.4.0",
-		"eventemitter3": "^4.0.7",
-		"memorystream": "^0.3.1"
+		"memorystream": "^0.3.1",
+		"readable-stream": "^3.6.0"
 	},
 	"devDependencies": {
 		"@types/axios": "^0.14.0",
 		"@types/delay": "^3.1.0",
 		"@types/eslint": "^7.2.6",
-		"@types/eventemitter3": "^2.0.2",
 		"@types/express": "^4.17.11",
 		"@types/jest": "^26.0.20",
 		"@types/memorystream": "^0.3.0",
 		"@types/node": "^14.14.22",
+		"@types/readable-stream": "^2.3.9",
 		"@typescript-eslint/eslint-plugin": "^4.12.0",
 		"@typescript-eslint/parser": "^4.12.0",
 		"axios": "^0.21.1",
