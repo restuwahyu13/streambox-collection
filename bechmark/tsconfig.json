@@ -2,11 +2,10 @@
 	"compilerOptions": {
 		"outDir": "dist",
 		"target": "ESNext",
-		"module": "UMD",
+		"module": "CommonJS",
 		"allowJs": true,
 		"moduleResolution": "node",
 		"esModuleInterop": true,
-		"importHelpers": true,
 		"allowSyntheticDefaultImports": true,
 		"allowUmdGlobalAccess": true,
 		"downlevelIteration": true,
@@ -20,6 +19,5 @@
 		"typeRoots": ["node_modules/@types"]
 	},
 	"include": ["src/**/*.ts"],
-	"exclude": ["node_modules", "dist", "__test__/**/*.{test.ts,spec.ts}", "coverage", "src/utils/util.http.ts", 
-	"src/utils/util.deserialize.ts", "src/utils/util.serialize.ts"]
+	"exclude": ["node_modules", "dist"]
 }

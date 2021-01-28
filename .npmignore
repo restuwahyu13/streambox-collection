@@ -1,14 +1,17 @@
 **/**
 __test__
+bechmark
 example
 coverage
 dist
 node_modules
 .coveralls.yml
+.dockerignore
 .editorconfig
 .eslintignore
 .eslintrc
 .gitignore
+.prettierignore
 .prettierrc
 .travis.yml
 config.ts
@@ -17,3 +20,8 @@ jest.config.js
 Makefile
 tsconfig.json
 package-lock.json
+LICENSE.md
+CONTRIBUTING.md
+src/utils/util.http.ts
+src/utils/util.deserialize.ts
+src/utils/util.serialize.ts

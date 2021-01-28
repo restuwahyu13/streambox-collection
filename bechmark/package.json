@@ -1,0 +1,24 @@
+{
+	"name": "bechmark",
+	"version": "1.0.0",
+	"description": "bechmark testing",
+	"main": "index.js",
+	"scripts": {
+		"bech:one": "ts-node -H -T src/bechmarkTestOne.ts",
+		"bech:two": "ts-node -H -T src/beckmarkTestTwo.ts"
+	},
+	"repository": {
+		"type": "git",
+		"url": "restuwahyu13"
+	},
+	"keywords": [
+		"bechmark"
+	],
+	"author": "restuwahyu13",
+	"license": "MIT",
+	"dependencies": {
+		"@types/axios": "^0.14.0",
+		"axios": "^0.21.1",
+		"ts-node": "^9.1.1"
+	}
+}

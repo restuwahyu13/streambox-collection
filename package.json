@@ -1,7 +1,7 @@
 {
-	"name": "stream-box-collection",
+	"name": "streambox-collection",
 	"version": "0.0.1",
-	"description": "stream-box-collection is utility for rendering response object, array or another format to client",
+	"description": "streambox-collection is a lightweight utility as a wrapper for displaying objects, arrays, strings, and number formats to clients using data streams.",
 	"main": "./dist/index.js",
 	"files": [
 		"/dist/**"
@@ -29,11 +29,11 @@
 	},
 	"license": "MIT",
 	"engines": {
-		"node": ">=10",
+		"node": ">=12",
 		"npm": ">=6"
 	},
 	"keywords": [
-		"stream-box-collection",
+		"streambox-collection",
 		"stream",
 		"grpc",
 		"es6",
