@@ -146,7 +146,7 @@ npm install streambox-collection -S or yarn add streambox-collection -S
   // app.js
   const express = require('express')
   const axios = require('axios')
-  const streamBox = require('streambox-collection')
+  const { streamBox } = require('../utils/util.stream')
 
   const app = express()
 
@@ -172,7 +172,7 @@ npm install streambox-collection -S or yarn add streambox-collection -S
   // app.ts
   import express, { Express, Request, Response } from 'express'
   import axios from 'axios'
-  import * as streamBox from 'streambox-collection'
+  import { streamBox } from '../utils/util.stream'
 
   const app = express() as Express
 
