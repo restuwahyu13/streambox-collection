@@ -6,7 +6,7 @@ import { isType } from '../utils/util.is'
  * parse buffer data to buffer
  */
 
-export function tobuffer(chunk: Buffer): any {
+export function toObject(chunk: Buffer): any {
 	if (chunk instanceof Buffer) {
 		return JSON.parse(unzipSync(chunk).toString())
 	} else {
