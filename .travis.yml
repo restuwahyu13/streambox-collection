@@ -1,36 +1,35 @@
+language: node_js
+node_js:
+  - node
+  - 14
+env:
+  global:
+    - COVERALLS_PARALLEL=true
+    - COVERALLS_SERVICE_NAME=travis-pro
+    - COVERALLS_REPO_TOKEN=N1yHrKvfPGlfkXycpYxkWnHNhzkssRb8M
+    - COVERALLS_GIT_BRANCH=main
 jobs:
   fast_finish: true
   include:
-    - language: node_js
-      node_js:
-        - node
-        - 14
-      env:
-        global:
-          - COVERALLS_PARALLEL=true
-          - COVERALLS_SERVICE_NAME=travis-pro
-          - COVERALLS_REPO_TOKEN=N1yHrKvfPGlfkXycpYxkWnHNhzkssRb8M
-          - COVERALLS_GIT_BRANCH=main
+    - addons:
+        apt:
+          packages:
+            - make
+      before_install:
+        - echo -e "machine github.com\n  login $GITHUB_TOKEN" > ~/.netrc
+        - git lfs pull
       branches:
         only:
           - main
       git:
         lfs_skip_smudge: true
-      before_install:
-        - echo -e "machine github.com\n  login $GITHUB_TOKEN" > ~/.netrc
-        - git lfs pull
-        - npm ci
-      addons:
-        apt:
-          packages:
-            - make
       script: make build
       cache:
         - npm
         - packages
-      dist: xenial
-      os:
-        - linux
-      notifications:
-        webhooks: https://coveralls.io/webhook?repo_token=N1yHrKvfPGlfkXycpYxkWnHNhzkssRb8M
-        email: restuwahyu13@gmail.com
+dist: xenial
+os:
+  - linux
+notifications:
+  webhooks: https://coveralls.io/webhook?repo_token=N1yHrKvfPGlfkXycpYxkWnHNhzkssRb8M
+  email: restuwahyu13@gmail.com
