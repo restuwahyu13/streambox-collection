@@ -12,7 +12,7 @@
 
 `streambox-collection` is a lightweight utility as a wrapper for displaying objects, arrays, strings, and number formats to
 clients using data streams, so data flow responses will be returned in buffer form, `streambox-collection` can also support large
-or small data streams, see this article for more information on [streams](https://bit.ly/3a6373y).
+or small data streams, see this article for more information on [streams](https://bit.ly/39rkTzb).
 
 - [Installation Package](#Installation-Package)
 - [API Reference](#API-Reference)
