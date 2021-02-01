@@ -1,0 +1,22 @@
+version: 2
+updates:
+  - package-ecosystem: 'npm'
+    directory: '/'
+    target-branch: 'main'
+    schedule:
+      interval: 'weekly'
+      day: 'monday'
+      time: '19:00'
+      timezone: 'Asia/Jakarta'
+    ignore:
+      - dependency-name: 'husky'
+      - dependency-name: 'rimraf'
+      - dependency-name: 'coveralls'
+      - dependency-name: 'ts-node'
+      - dependency-name: '*.@types'
+    commit-message:
+      prefix: 'dependencies'
+      prefix-development: 'devDependencies'
+      include: 'scope'
+    open-pull-requests-limit: 5
+    versioning-strategy: 'increase-if-necessary'
