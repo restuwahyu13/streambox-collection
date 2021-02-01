@@ -35,36 +35,40 @@ npm install streambox-collection -S or yarn add streambox-collection -S
 
 ## API Reference
 
-#### StreamBox Array(data: Record<string, any>[] | string[] | number[], delay?: number): Promise<Buffer>
+#### StreamBox Array( data: Record<string, any>[] | string[] | number[], delay?: number ): Promise<Buffer>
 
 - **streamBox.Array - Method** - create a data stream for the array and display it to the client
 - **streamBox.Array.data - Params** - set stream data for consumption to the client
 - **streamBox.Array.delay - Params** - set delay before returning data to the client
 
-#### StreamBox Object(data: Record<string, any>, delay?: number): Promise<Buffer>
+#### StreamBox Object( data: Record<string, any>, delay?: number ): Promise<Buffer>
 
 - **streamBox.object - Method** - create a data stream for the object and display it to the client
 - **streamBox.object.data - Params** - set stream data for consumption to the client
 - **streamBox.object.delay - Params** - set delay before returning data to the client
 
-#### StreamBox String(data: string, delay?: number): Promise<Buffer>
+#### StreamBox String( data: string, delay?: number ): Promise<Buffer>
 
 - **streamBox.string - Method** - create a data stream for the string and display it to the client
 - **streamBox.string.data - Params** - set stream data for consumption to the client
 - **streamBox.string.delay - Params** - set delay before returning data to the client
 
-#### StreamBox Number(data: number, delay?: number): Promise<Buffer>
+#### StreamBox Number( data: number, delay?: number ): Promise<Buffer>
 
 - **streamBox.number - Method** - create a data stream for the number and display it to the client
 - **streamBox.number.data - Params** - set stream data for consumption to the client
 - **streamBox.number.delay - Params** - set delay before returning data to the client
 
-#### StreamBox Parser(data: Buffer): any
+#### StreamBox Parser( data: Buffer ): any
 
 - **streamBox.toArray - Method** - parse the buffer data to an array and pass its value to the client
 - **streamBox.toObject - Method** - parse the buffer data to an object and pass its value to the client
 - **streamBox.toString - Method** - parse the buffer data to an string and pass its value to the client
 - **streamBox.toNumber - Method** - parse the buffer data to an number and pass its value to the client
+
+#### StreamBox Callback( parameter: Promise, callback: any ): void
+
+- **streamBox.toCallback - Method** - convert promise function to callback function
 
 ### Example Usage
 
@@ -180,6 +184,58 @@ npm install streambox-collection -S or yarn add streambox-collection -S
   	const { data } = await axios.get('https://jsonplaceholder.typicode.com/photos')
   	streamBox(res, 200, { users: data })
   })
+  ```
+
+- #### Example Usage Convert Promise To Callback Using CommonJS
+
+  ```javascript
+  const streambox = require('streambox-collection')
+  const axios = require('axios')
+  const fetch = require('node-fetch')
+
+  // using axios
+  streambox.toCallback(axios.get('https://jsonplaceholder.typicode.com/users'), (res) => console.log(res.data))
+  
+  // using fetch
+  streambox.toCallback(fetch('https://jsonplaceholder.typicode.com/users'), async (res) => {
+	   const data = await res.json()
+	   console.log(data)
+   })
+   
+  // using promise constructor
+   function resultData() {
+	     return new Promise((resolve, reject) => {
+		    resolve('hello wordl')
+	   })
+   }
+
+  streambox.toCallback(resultData(), (res) => console.log(res))
+  ```
+
+- #### Example Usage Convert Promise To Callback Using ES6
+
+  ```typescript
+  import * as streambox from 'streambox-collection'
+  import axios from 'axios'
+  import fetch from 'node-fetch'
+
+  // using axios
+  streambox.toCallback(axios.get('https://jsonplaceholder.typicode.com/users'), (res) => console.log(res.data))
+
+  // using fetch
+  streambox.toCallback(fetch('https://jsonplaceholder.typicode.com/users'), async (res) => {
+     const data = await res.json()
+     console.log(data)
+   })
+
+  // using promise constructor
+   function resultData() {
+       return new Promise((resolve, reject) => {
+        resolve('hello wordl')
+     })
+   }
+
+  streambox.toCallback(resultData(), (res) => console.log(res))
   ```
 
 ### Testing

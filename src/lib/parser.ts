@@ -1,5 +1,6 @@
 import { unzipSync } from 'zlib'
 import { StreamBoxCollection } from '../utils/util.error'
+import { Generator, event } from '../utils/util.generator'
 import { isType } from '../utils/util.is'
 
 /**
@@ -48,4 +49,16 @@ export function toNumber(chunk: Buffer): any {
 	} else {
 		return new StreamBoxCollection(`parameter must be a buffer you give type ${isType(chunk)}`)
 	}
+}
+
+/**
+ * parse promise to callback
+ */
+
+export function toCallback(parameter: Promise<any>, callback: any): void {
+	new Generator(parameter).execute().then((res) => event.emit('data', res))
+	event.once('data', (chunk) => {
+		const res: Record<string, any> | number | string | any[] = chunk
+		callback(res)
+	})
 }

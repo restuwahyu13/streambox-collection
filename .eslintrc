@@ -22,7 +22,8 @@
 		"@typescript-eslint/no-this-alias": 1,
 		"jest/valid-expect-in-promise": 1,
 		"jest/no-conditional-expect": 1,
-		"@typescript-eslint/no-empty-interface": 0
+		"@typescript-eslint/no-empty-interface": 0,
+		"generator-star-spacing": 0
 	},
 	"env": {
 		"node": true,
