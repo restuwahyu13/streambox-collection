@@ -1,6 +1,6 @@
 import { unzipSync } from 'zlib'
-import { StreamBoxCollection } from '../utils/util.error'
-import { Generator, event } from '../utils/util.generator'
+import { StreamBoxError } from '../utils/util.error'
+import { Generator } from '../utils/util.generator'
 import { isType } from '../utils/util.is'
 
 /**
@@ -11,7 +11,7 @@ export function toObject(chunk: Buffer): any {
 	if (chunk instanceof Buffer) {
 		return JSON.parse(unzipSync(chunk).toString())
 	} else {
-		return new StreamBoxCollection(`parameter must be a buffer you give type ${isType(chunk)}`)
+		return new StreamBoxError(`parameter must be a buffer you give type ${isType(chunk)}`)
 	}
 }
 
@@ -23,7 +23,7 @@ export function toArray(chunk: Buffer): any {
 	if (chunk instanceof Buffer) {
 		return JSON.parse(unzipSync(chunk).toString()).data
 	} else {
-		return new StreamBoxCollection(`parameter must be a buffer you give type ${isType(chunk)}`)
+		return new StreamBoxError(`parameter must be a buffer you give type ${isType(chunk)}`)
 	}
 }
 
@@ -35,7 +35,7 @@ export function toString(chunk: Buffer): any {
 	if (chunk instanceof Buffer) {
 		return unzipSync(chunk).toString()
 	} else {
-		return new StreamBoxCollection(`parameter must be a buffer you give type ${isType(chunk)}`)
+		return new StreamBoxError(`parameter must be a buffer you give type ${isType(chunk)}`)
 	}
 }
 
@@ -47,7 +47,7 @@ export function toNumber(chunk: Buffer): any {
 	if (chunk instanceof Buffer) {
 		return +unzipSync(chunk).toString()
 	} else {
-		return new StreamBoxCollection(`parameter must be a buffer you give type ${isType(chunk)}`)
+		return new StreamBoxError(`parameter must be a buffer you give type ${isType(chunk)}`)
 	}
 }
 
@@ -56,9 +56,16 @@ export function toNumber(chunk: Buffer): any {
  */
 
 export function toCallback(parameter: Promise<any>, callback: any): void {
-	new Generator(parameter).execute().then((res) => event.emit('data', res))
-	event.once('data', (chunk) => {
-		const res: Record<string, any> | number | string | any[] = chunk
-		callback(res)
-	})
+	let response
+	let error
+
+	if (parameter instanceof Promise) {
+		new Generator(parameter).execute().then((res) => {
+			response = res
+			callback(error, response)
+		})
+	} else {
+		error = new StreamBoxError(`parameter must be a Promise you give type ${isType(parameter)}`)
+		callback(error, response)
+	}
 }

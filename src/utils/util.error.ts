@@ -1,4 +1,4 @@
-export class StreamBoxCollection extends Error {
+export class StreamBoxError extends Error {
 	public name: string
 	public message: string
 

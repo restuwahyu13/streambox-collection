@@ -1,34 +1,34 @@
-import * as grpcBox from '../src/index'
+import * as streamBox from '../src/index'
 import { isType } from '../src/utils/util.is'
 
-describe('grpcBox.number', () => {
-	let grpc
+describe('streamBox.number', () => {
+	let stream
 
 	beforeEach(() => {
-		grpc = grpcBox
+		stream = streamBox
 	})
 
 	it('check if is method is exist', () => {
-		expect(grpc.number).toBeDefined()
-		expect(grpc.number).toBeInstanceOf(Function)
+		expect(stream.number).toBeDefined()
+		expect(stream.number).toBeInstanceOf(Function)
 	})
 
 	it('check if is response value is buffer and return number', async (done) => {
-		const res = await grpc.number(Math.pow(4, 2))
+		const res = await stream.number(Math.pow(4, 2))
 		expect(res).toBeInstanceOf(Buffer)
-		expect(grpc.toNumber(res)).toBe(16)
+		expect(stream.toNumber(res)).toBe(16)
 		done()
 	})
 
 	it('check if is response value from buffer typeof is number', async (done) => {
-		const res = await grpc.number(Math.pow(4, 2))
+		const res = await stream.number(Math.pow(4, 2))
 		expect(res).toBeInstanceOf(Buffer)
-		expect(isType(grpc.toNumber(res))).toBe('number')
+		expect(isType(stream.toNumber(res))).toBe('number')
 		done()
 	})
 
 	it('check if response value error is not number', (done) => {
-		grpc.number('12345').catch((error) => {
+		stream.number('12345').catch((error) => {
 			expect(error.message).toMatch(/string/)
 			done()
 		})

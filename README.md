@@ -14,18 +14,18 @@
 clients using data streams, so data flow responses will be returned in buffer form, `streambox-collection` can also support large
 or small data streams, see this article for more information on [streams](https://bit.ly/39rkTzb).
 
-- [Installation Package](#Installation-Package)
-- [API Reference](#API-Reference)
-  - [StreamBox Array](#streambox-arraydata-recordstring-any--string--number-delay-number-promise)
+- [Installation Package](#installation-package)
+- [API Reference](#api-reference)
+  - [StreamBox Array](#streambox-array-data-recordstring-any--string--number-delay-number--promise)
   - [StreamBox Object](#streambox-objectdata-recordstring-any-delay-number-promise)
   - [StreamBox String](#streambox-stringdata-string-delay-number-promise)
   - [StreamBox Number](#streambox-numberdata-number-delay-number-promise)
   - [StreamBox Parser](#streambox-parserdata-buffer-any)
-- [Example Usage](#Example-Usage)
-- [Testing](#Testing)
-- [Bugs](#Bugs)
-- [Contributing](#Contributing)
-- [License](#License)
+- [Example Usage](#example-usage)
+- [Testing](#testing)
+- [Bugs](#bugs)
+- [Contributing](#contributing)
+- [License](#license)
 
 ## Installation Package
 
@@ -194,10 +194,10 @@ npm install streambox-collection -S or yarn add streambox-collection -S
   const fetch = require('node-fetch')
 
   // using axios
-  streambox.toCallback(axios.get('https://jsonplaceholder.typicode.com/users'), (res) => console.log(res.data))
+  streambox.toCallback(axios.get('https://jsonplaceholder.typicode.com/users'), (err, res) => console.log(res.data))
   
   // using fetch
-  streambox.toCallback(fetch('https://jsonplaceholder.typicode.com/users'), async (res) => {
+  streambox.toCallback(fetch('https://jsonplaceholder.typicode.com/users'), async (err, res) => {
 	   const data = await res.json()
 	   console.log(data)
    })
@@ -209,7 +209,7 @@ npm install streambox-collection -S or yarn add streambox-collection -S
 	   })
    }
 
-  streambox.toCallback(resultData(), (res) => console.log(res))
+  streambox.toCallback(resultData(), (err, res) => console.log(res))
   ```
 
 - #### Example Usage Convert Promise To Callback Using ES6
@@ -220,10 +220,10 @@ npm install streambox-collection -S or yarn add streambox-collection -S
   import fetch from 'node-fetch'
 
   // using axios
-  streambox.toCallback(axios.get('https://jsonplaceholder.typicode.com/users'), (res) => console.log(res.data))
+  streambox.toCallback(axios.get('https://jsonplaceholder.typicode.com/users'), (err, res) => console.log(res.data))
 
   // using fetch
-  streambox.toCallback(fetch('https://jsonplaceholder.typicode.com/users'), async (res) => {
+  streambox.toCallback(fetch('https://jsonplaceholder.typicode.com/users'), async (err, res) => {
      const data = await res.json()
      console.log(data)
    })
@@ -235,7 +235,7 @@ npm install streambox-collection -S or yarn add streambox-collection -S
      })
    }
 
-  streambox.toCallback(resultData(), (res) => console.log(res))
+  streambox.toCallback(resultData(), (err, res) => console.log(res))
   ```
 
 ### Testing
@@ -273,5 +273,5 @@ Want to make **Streambox-Collection** more perfect ? Let's contribute and follow
 - [MIT License](https://github.com/restuwahyu13/streambox-collection/blob/main/LICENSE.md)
 
 <p align="right" style="padding: 5px; border-radius: 100%; background-color: red; font-size: 2rem;">
-  <b><a href="#StreamBox-Collection">BACK TO TOP</a></b>
+  <b><a href="#streambox-collection">BACK TO TOP</a></b>
 </p>

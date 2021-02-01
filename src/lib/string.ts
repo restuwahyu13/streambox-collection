@@ -2,7 +2,7 @@ import MemoryStream from 'memorystream'
 import { gzipSync } from 'zlib'
 import { Transform } from 'readable-stream'
 import { isType } from '../utils/util.is'
-import { StreamBoxCollection } from '../utils/util.error'
+import { StreamBoxError } from '../utils/util.error'
 import { waitFor } from '../utils/util.wait'
 
 const memoryStream = new MemoryStream() as MemoryStream
@@ -25,7 +25,7 @@ export function string(data: string, delay?: number): Promise<Buffer> {
 			transformStream.once('response', (data) => resolve(data))
 			transformStream.end()
 		} else {
-			reject(new StreamBoxCollection(`data must be a string you give type ${isType(data)}`))
+			reject(new StreamBoxError(`data must be a string you give type ${isType(data)}`))
 		}
 	})
 }
