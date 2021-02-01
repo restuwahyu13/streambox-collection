@@ -1,4 +1,5 @@
 import * as streamBox from '../src/index'
+import { httpRequestTest } from '../src/utils/util.http'
 import { isType } from '../src/utils/util.is'
 import { gzipSync } from 'zlib'
 
@@ -51,8 +52,19 @@ describe('streamboxBox.parser', () => {
 
 	it('check if is response value is hello word', () => {
 		streambox.toCallback(Promise.resolve('hello wordl'), (err, res) => {
+			expect(isType(err)).toEqual('object')
 			expect(isType(res)).toBe('string')
 			expect(res).toEqual('hello wordl')
+		})
+	})
+
+	it('check if is response value is error', (done) => {
+		const http = httpRequestTest('https://jsonplaceholder.typicode.com/usersx', 'get')
+		streambox.toCallback(http, (err, res) => {
+			expect(isType(res)).toEqual('null')
+			expect(err.response.status).toEqual(404)
+			expect(err.response.statusText).toEqual('Not Found')
+			done()
 		})
 	})
 
@@ -82,6 +94,7 @@ describe('streamboxBox.parser', () => {
 
 	it('check if is response value type is not promise and throw error', () => {
 		streambox.toCallback('hello wordl', (err, res) => {
+			expect(isType(res)).toEqual('null')
 			expect(err.message).toMatch(/string/)
 		})
 	})

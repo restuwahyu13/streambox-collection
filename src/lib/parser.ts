@@ -60,10 +60,15 @@ export function toCallback(parameter: Promise<any>, callback: any): void {
 	let error
 
 	if (parameter instanceof Promise) {
-		new Generator(parameter).execute().then((res) => {
-			response = res
-			callback(error, response)
-		})
+		new Generator(parameter)
+			.execute()
+			.then((res) => {
+				response = res
+				callback(error, response)
+			})
+			.catch((err) => {
+				callback(err, response)
+			})
 	} else {
 		error = new StreamBoxError(`parameter must be a Promise you give type ${isType(parameter)}`)
 		callback(error, response)
