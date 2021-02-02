@@ -54,7 +54,7 @@
 		"typescript"
 	],
 	"dependencies": {
-		"delay": "^4.4.0",
+		"delay": "^5.0.0",
 		"is-any-type": "0.0.2",
 		"memorystream": "^0.3.1",
 		"readable-stream": "^3.6.0"
