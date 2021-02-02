@@ -1,7 +1,7 @@
 import { unzipSync } from 'zlib'
 import { StreamBoxError } from '../utils/util.error'
 import { Generator } from '../utils/util.generator'
-import { isType } from '../utils/util.is'
+import { isType } from 'is-any-type'
 
 /**
  * parse buffer data to buffer

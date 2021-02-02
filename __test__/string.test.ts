@@ -1,11 +1,13 @@
 import * as streamBox from '../src/index'
-import { isType } from '../src/utils/util.is'
+import { isType } from 'is-any-type'
 
 describe('streamBox.string', () => {
 	let stream
+	let is
 
 	beforeEach(() => {
 		stream = streamBox
+		is = isType
 	})
 
 	it('check if is method is exist', () => {
@@ -23,7 +25,7 @@ describe('streamBox.string', () => {
 	it('check if is response value from buffer typeof is string', async (done) => {
 		const res = await stream.string('hello my name is restu')
 		expect(res).toBeInstanceOf(Buffer)
-		expect(isType(stream.toString(res))).toBe('string')
+		expect(is(stream.toString(res))).toBe('string')
 		done()
 	})
 
@@ -32,6 +34,5 @@ describe('streamBox.string', () => {
 			expect(error.message).toMatch(/number/)
 			done()
 		})
-		done()
 	})
 })

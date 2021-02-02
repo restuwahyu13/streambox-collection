@@ -1,7 +1,7 @@
 import MemoryStream from 'memorystream'
 import { gzipSync } from 'zlib'
 import { Transform } from 'readable-stream'
-import { isType } from '../utils/util.is'
+import { isType } from 'is-any-type'
 import { StreamBoxError } from '../utils/util.error'
 import { waitFor } from '../utils/util.wait'
 

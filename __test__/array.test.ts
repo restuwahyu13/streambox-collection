@@ -1,12 +1,14 @@
 import * as streamBox from '../src/index'
-import { isType } from '../src/utils/util.is'
+import { isType } from 'is-any-type'
 import { httpRequestTest } from '../src/utils/util.http'
 
 describe('streamBox.array', () => {
 	let stream
+	let is
 
 	beforeEach(() => {
 		stream = streamBox
+		is = isType
 	})
 
 	it('check if is method is exist', () => {
@@ -24,16 +26,16 @@ describe('streamBox.array', () => {
 	it('check if is response value from Buffer typeof is array', async (done) => {
 		const res = await stream.array([{ name: 'restu wahyu saputra' }])
 		expect(res).toBeInstanceOf(Buffer)
-		expect(isType(stream.toArray(res))).toBe('array')
+		expect(is(stream.toArray(res))).toBe('array')
 		done()
 	})
 
-	it('check if is response value is array from api', async (done) => {
-		const { data } = await httpRequestTest('https://jsonplaceholder.typicode.com/users', 'get')
-		const res = await stream.array(data)
-		expect(isType(stream.toArray(res))).toStrictEqual('array')
-		done()
-	})
+	// it('check if is response value is array from api', async (done) => {
+	// 	const { data } = await httpRequestTest('https://jsonplaceholder.typicode.com/users', 'get')
+	// 	const res = await stream.array(data)
+	// 	expect(is(stream.toArray(res))).toBe('array')
+	// 	done()
+	// })
 
 	it('check if object property in response from api is match', async (done) => {
 		const { data } = await httpRequestTest('https://jsonplaceholder.typicode.com/users', 'get')
