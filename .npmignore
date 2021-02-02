@@ -4,6 +4,7 @@ bechmark
 example
 coverage
 dist
+esm
 node_modules
 .coveralls.yml
 .dockerignore

@@ -92,6 +92,22 @@ npm install streambox-collection -S or yarn add streambox-collection -S
 
   ```typescript
   import * as streamBox from 'streambox-collection'
+  import { Empty } from '../typedefs/users_pb'
+  import { client } from './client'
+
+  client.getUsers(Empty, (error, response) => {
+  	if (error) console.error(error)
+  	streamBox
+  		.array(response.toObject())
+  		.then((res) => console.log(streamBox.toArray(res)))
+  		.catch(console.log)
+  })
+  ```
+
+- #### Example Usage Using ES6 With Grpc And Typescript
+
+  ```typescript
+  import * as streamBox from 'streambox-collection'
   import { ServiceError } from 'grpc'
   import { UserList, Empty } from '../typedefs/users_pb'
   import { client } from './client'
@@ -100,7 +116,7 @@ npm install streambox-collection -S or yarn add streambox-collection -S
   	if (error) console.error(error)
   	streamBox
   		.array(response.toObject())
-  		.then((res) => console.log(streamBox.toArray(res)))
+  		.then((res: Buffer) => console.log(streamBox.toArray(res)))
   		.catch(console.log)
   })
   ```
@@ -115,12 +131,27 @@ npm install streambox-collection -S or yarn add streambox-collection -S
   const app = express()
 
   app.get('/fetch', async (req, res) => {
-  	const { data } = await axios.get('https://jsonplaceholder.typicode.com/photos')
+  	const { data } = await axios.get('https://jsonplaceholder.typicode.com/users')
   	streamBox.array(data).then((response) => res.json(streamBox.toArray(response)))
   })
   ```
 
 - #### Example Usage Using ES6 With Express.js
+
+  ```typescript
+  import express from 'express'
+  import axios from 'axios'
+  import * as streamBox from 'streambox-collection'
+
+  const app = express()
+
+  app.get('/fetch', async (req, res) => {
+  	const { data } = await axios.get('https://jsonplaceholder.typicode.com/users')
+  	streamBox.array(data).then((response) => res.json(streamBox.toArray(response)))
+  })
+  ```
+
+- #### Example Usage Using ES6 With Express.js And Typescript
 
   ```typescript
   import express, { Express, Request, Response } from 'express'
@@ -130,8 +161,8 @@ npm install streambox-collection -S or yarn add streambox-collection -S
   const app = express() as Express
 
   app.get('/fetch', async (req: Request, res: Response) => {
-  	const { data } = await axios.get('https://jsonplaceholder.typicode.com/photos')
-  	streamBox.array(data).then((response) => res.json(streamBox.toArray(response)))
+  	const { data } = await axios.get('https://jsonplaceholder.typicode.com/users')
+  	streamBox.array(data).then((response: Buffer) => res.json(streamBox.toArray(response)))
   })
   ```
 
@@ -156,11 +187,44 @@ npm install streambox-collection -S or yarn add streambox-collection -S
 
   app.get('/fetch', async (req, res) => {
   	const { data } = await axios.get('https://jsonplaceholder.typicode.com/users')
-  	streamBox(res, 200, { users: data })
+  		streamBox(res, 200, {
+        method: req.method,
+        statusCode: res.statusCode,
+        users: data
+	   })
   })
   ```
 
 - #### Example Usage Custom Stream Using ES6 With Express.js
+
+  ```typescript
+  // util.stream.ts
+  import * as streamBoxCollection from 'streambox-collection'
+
+  export const streamBox = (handler, statusCode, data) => {
+  	streamBoxCollection.object({ ...data }).then((res) => {
+  		return handler.status(statusCode).json(streamBoxCollection.toObject(res))
+  	})
+  }
+
+  // app.ts
+  import express from 'express'
+  import axios from 'axios'
+  import { streamBox } from '../utils/util.stream'
+
+  const app = express()
+
+  app.get('/fetch', async (req, res) => {
+  	const { data } = await axios.get('https://jsonplaceholder.typicode.com/users')
+  		streamBox(res, 200, {
+        method: req.method,
+        statusCode: res.statusCode,
+        users: data
+	  })
+  })
+  ```
+
+- #### Example Usage Custom Stream Using ES6 With Express.js And Typescript
 
   ```typescript
   // util.stream.ts
@@ -174,15 +238,19 @@ npm install streambox-collection -S or yarn add streambox-collection -S
   }
 
   // app.ts
-  import express, { Express, Request, Response } from 'express'
+  import express, { Request, Response } from 'express'
   import axios from 'axios'
   import { streamBox } from '../utils/util.stream'
 
   const app = express() as Express
 
   app.get('/fetch', async (req: Request, res: Response) => {
-  	const { data } = await axios.get('https://jsonplaceholder.typicode.com/photos')
-  	streamBox(res, 200, { users: data })
+  	const { data } = await axios.get('https://jsonplaceholder.typicode.com/users')
+  		streamBox(res, 200, {
+        method: req.method,
+        statusCode: res.statusCode,
+        users: data
+	  })
   })
   ```
 

@@ -15,7 +15,7 @@ const transformStream = new Transform() as Transform
  * @return Promise
  */
 
-export function array(data: Record<string, any>[] | any[], delay?: number): Promise<Buffer> {
+export default function array(data: Record<string, any>[] | any[], delay?: number): Promise<Buffer> {
 	return new Promise(async (resolve, reject) => {
 		if (isType(data) === 'array') {
 			await waitFor(delay)

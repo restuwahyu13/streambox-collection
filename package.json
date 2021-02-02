@@ -1,15 +1,19 @@
 {
 	"name": "streambox-collection",
-	"version": "0.0.4-rc",
+	"version": "0.0.4",
 	"description": "streambox-collection is a lightweight utility as a wrapper for displaying objects, arrays, strings, and number formats to clients using data streams.",
 	"main": "./dist/index.js",
+	"module": "./esm/index.js",
 	"files": [
-		"/dist/**"
+		"/dist/**",
+		"/esm/**"
 	],
 	"scripts": {
-		"clean": "rimraf dist",
-		"compiler": "npm run clean && tsc --pretty",
-		"build": "npm run compiler",
+		"clean:esm": "rimraf esm",
+		"compiler:esm": "npm run clean:esm && tsc --outDir esm --module es6 --pretty",
+		"clean:cjs": "rimraf dist",
+		"compiler:cjs": "npm run clean:cjs && tsc --pretty",
+		"build": "npm run compiler:cjs && npm run compiler:esm",
 		"start": "ts-node index.ts",
 		"test": "jest",
 		"test:coverage": "jest --coverage",
