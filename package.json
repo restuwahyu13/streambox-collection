@@ -1,6 +1,6 @@
 {
 	"name": "streambox-collection",
-	"version": "0.0.4",
+	"version": "0.0.5",
 	"description": "streambox-collection is a lightweight utility as a wrapper for displaying objects, arrays, strings, and number formats to clients using data streams.",
 	"main": "./dist/index.js",
 	"module": "./esm/index.js",
