@@ -10,8 +10,8 @@
 	],
 	"scripts": {
 		"clean:esm": "rimraf esm",
-		"compiler:esm": "npm run clean:esm && tsc --outDir esm --module es6 --pretty",
 		"clean:cjs": "rimraf dist",
+		"compiler:esm": "npm run clean:esm && tsc --outDir esm --module es6 --pretty",
 		"compiler:cjs": "npm run clean:cjs && tsc --pretty",
 		"build": "npm run compiler:cjs && npm run compiler:esm",
 		"start": "ts-node index.ts",
