@@ -197,8 +197,8 @@ npm install streambox-collection -S or yarn add streambox-collection -S
 
 - #### Example Usage Custom Stream Using ES6 With Express.js
 
-  ```typescript
-  // util.stream.ts
+  ```javascript
+  // util.stream.js
   import * as streamBoxCollection from 'streambox-collection'
 
   export const streamBox = (handler, statusCode, data) => {
@@ -207,7 +207,7 @@ npm install streambox-collection -S or yarn add streambox-collection -S
   	})
   }
 
-  // app.ts
+  // app.js
   import express from 'express'
   import axios from 'axios'
   import { streamBox } from '../utils/util.stream'
@@ -252,6 +252,46 @@ npm install streambox-collection -S or yarn add streambox-collection -S
         users: data
 	  })
   })
+  ```
+
+- #### Example Usage With React.js
+
+  ```javascript
+  import React, { useState, useEffect } from 'react'
+  import * as streamBox from 'streambox-collection'
+  import axios from 'axios'
+
+  function App() {
+    const [values, setValues] = useState({
+      loading: true,
+      users: []
+    })
+
+    useEffect(() => {
+      if (values.loading) {
+        fetchData()
+      }
+    }, [])
+
+    function fetchData() {
+      streamBox.toCallback(axios.get('https://jsonplaceholder.typicode.com/users'), (err, res) => {
+        if (err) console.log(err)
+        streamBox
+          .array(res.data)
+          .then((data) => setValues({ ...values, loading: false, users: streamBox.toArray(data) }))
+          .catch(console.error)
+      })
+    }
+
+    return (
+      <>
+        {values.loading && <h1>Loading...</h1>}
+        <ul>{!values.loading && values.users.map((user) => <li key={user.id}>{user.name}</li>)}</ul>
+      </>
+    )
+  }
+
+  export default App
   ```
 
 - #### Example Usage Convert Promise To Callback Using CommonJS
