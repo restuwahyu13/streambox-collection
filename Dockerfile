@@ -10,13 +10,13 @@ COPY package*.json \
   config.ts \
   jest.config.ts \
   Makefile ./
-COPY ./ /app
+COPY . ./
 RUN apk add make \
   && make install
 
 ## BUILD STAGE TWO
 
 FROM streambox-collection
-COPY --from=streambox-collection ./ /app
-WORKDIR /app
+COPY --from=streambox-collection ./ /usr/src/app
+WORKDIR /usr/src/app
 RUN make build

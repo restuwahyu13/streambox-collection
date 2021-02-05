@@ -55,7 +55,7 @@ export function toNumber(chunk: Buffer): any {
  * parse promise to callback
  */
 
-export function toCallback(parameter: Promise<any>, callback: any): void {
+export function toCallback(parameter: Promise<any>, callback: any): ReturnType<() => void> {
 	let response
 	let error
 

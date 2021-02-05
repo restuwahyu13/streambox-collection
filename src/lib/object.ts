@@ -15,7 +15,7 @@ const transformStream = new Transform() as Transform
  * @return Promise
  */
 
-export default function object(data: Record<string, any>, delay?: number): Promise<Buffer> {
+export default function object(data: Record<string, any>, delay?: number): ReturnType<() => Promise<Buffer>> {
 	return new Promise(async (resolve, reject) => {
 		if (isType(data) === 'object') {
 			await waitFor(delay)

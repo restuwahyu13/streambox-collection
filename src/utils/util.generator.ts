@@ -9,11 +9,11 @@ export class Generator {
 		this.next = this.iterator.next()
 	}
 
-	private *generator(): globalThis.Generator {
+	private *generator(): ReturnType<() => globalThis.Generator> {
 		yield this.promise
 	}
 
-	public execute(): Promise<any> | any {
+	public execute(): ReturnType<() => Promise<any> | any> {
 		return this.next.value
 	}
 }
