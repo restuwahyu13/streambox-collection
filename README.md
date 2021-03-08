@@ -29,9 +29,12 @@ or small data streams, see this article for more information on [streams](https:
 
 ## Installation Package
 
-```sh
+#### With NPM
+  ```sh
 npm install streambox-collection -S or yarn add streambox-collection -S
-```
+  ```
+#### With CDN
+  follow this **[link](https://www.jsdelivr.com/package/npm/streambox-collection)**
 
 ## API Reference
 
