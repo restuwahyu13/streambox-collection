@@ -58,7 +58,7 @@
 	],
 	"dependencies": {
 		"delay": "^5.0.0",
-		"is-any-type": "0.0.3",
+		"is-any-type": "0.0.4",
 		"memorystream": "^0.3.1",
 		"readable-stream": "^3.6.0"
 	},
